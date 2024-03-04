@@ -28,4 +28,19 @@ class NetworkManager {
         }
 
     }
+    
+    func addPet(pet: Pet, completion: @escaping (Bool) -> Void) {
+        
+        AF.request(baseURL, method: .post, parameters: pet, encoder: JSONParameterEncoder.default).response { response in
+            switch response.result {
+                case .success:
+                    completion(true)
+                case .failure(let error):
+                    print(error)
+                    completion(false)
+            }
+
+        }
+
+    }
 }
